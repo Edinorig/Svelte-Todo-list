@@ -681,7 +681,7 @@ var app = (function () {
     	return child_ctx;
     }
 
-    // (76:4) {#if !(isDone == "checked")}
+    // (78:4) {#if !(isDone == "checked")}
     function create_if_block_1(ctx) {
     	let todoitem;
     	let current;
@@ -728,14 +728,14 @@ var app = (function () {
     		block,
     		id: create_if_block_1.name,
     		type: "if",
-    		source: "(76:4) {#if !(isDone == \\\"checked\\\")}",
+    		source: "(78:4) {#if !(isDone == \\\"checked\\\")}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (75:3) {#each tasksArray as { idTasks, nameTask, isDone }}
+    // (77:3) {#each tasksArray as { idTasks, nameTask, isDone }}
     function create_each_block_1(ctx) {
     	let if_block_anchor;
     	let current;
@@ -794,14 +794,14 @@ var app = (function () {
     		block,
     		id: create_each_block_1.name,
     		type: "each",
-    		source: "(75:3) {#each tasksArray as { idTasks, nameTask, isDone }}",
+    		source: "(77:3) {#each tasksArray as { idTasks, nameTask, isDone }}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (89:4) {#if isDone == "checked"}
+    // (91:4) {#if isDone == "checked"}
     function create_if_block(ctx) {
     	let todoitem;
     	let current;
@@ -848,14 +848,14 @@ var app = (function () {
     		block,
     		id: create_if_block.name,
     		type: "if",
-    		source: "(89:4) {#if isDone == \\\"checked\\\"}",
+    		source: "(91:4) {#if isDone == \\\"checked\\\"}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (88:3) {#each tasksArray as { idTasks, isDone, nameTask }}
+    // (90:3) {#each tasksArray as { idTasks, isDone, nameTask }}
     function create_each_block(ctx) {
     	let if_block_anchor;
     	let current;
@@ -914,7 +914,7 @@ var app = (function () {
     		block,
     		id: create_each_block.name,
     		type: "each",
-    		source: "(88:3) {#each tasksArray as { idTasks, isDone, nameTask }}",
+    		source: "(90:3) {#each tasksArray as { idTasks, isDone, nameTask }}",
     		ctx
     	});
 
@@ -996,22 +996,22 @@ var app = (function () {
     			attr_dev(input, "class", "newTask");
     			input.value = /*newTask*/ ctx[0];
     			attr_dev(input, "placeholder", "Write wour task here");
-    			add_location(input, file, 63, 2, 1335);
-    			add_location(button, file, 69, 2, 1440);
+    			add_location(input, file, 65, 2, 1340);
+    			add_location(button, file, 71, 2, 1445);
     			attr_dev(div0, "class", "wrapper-create-task");
-    			add_location(div0, file, 62, 1, 1299);
+    			add_location(div0, file, 64, 1, 1304);
     			attr_dev(h10, "class", "svelte-1tky8bj");
-    			add_location(h10, file, 73, 3, 1590);
+    			add_location(h10, file, 75, 3, 1595);
     			attr_dev(div1, "class", "wrapper-todo");
-    			add_location(div1, file, 72, 2, 1560);
+    			add_location(div1, file, 74, 2, 1565);
     			attr_dev(h11, "class", "svelte-1tky8bj");
-    			add_location(h11, file, 86, 3, 1867);
+    			add_location(h11, file, 88, 3, 1872);
     			attr_dev(div2, "class", "wrapper-done");
-    			add_location(div2, file, 85, 2, 1837);
+    			add_location(div2, file, 87, 2, 1842);
     			attr_dev(div3, "class", "wrapper-container-tasks flex flex-justify-around");
-    			add_location(div3, file, 71, 1, 1495);
+    			add_location(div3, file, 73, 1, 1500);
     			attr_dev(main, "class", "svelte-1tky8bj");
-    			add_location(main, file, 61, 0, 1291);
+    			add_location(main, file, 63, 0, 1296);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -1170,9 +1170,11 @@ var app = (function () {
     		console.log(idx);
 
     		tasksArray.forEach(task => {
-    			if (task.idTasks === idx) {
+    			console.log(tasksArray);
+
+    			if (task.idTasks == idx) {
+    				tasksArray.shift(task.idTasks);
     				blockTask.parentNode.removeChild(blockTask);
-    				tasksArray.shift(idx);
     				console.log(tasksArray);
     			}
     		});
@@ -1191,12 +1193,12 @@ var app = (function () {
     	function createTask() {
     		$$invalidate(0, newTask = document.querySelector(".newTask").value);
 
-    		if (!(newTask === "")) {
+    		if (!(newTask == "")) {
     			const taskProps = {
     				idTasks,
     				isDone: "",
     				remove: "",
-    				nameTask: document.querySelector(".newTask").value
+    				nameTask: newTask
     			};
 
     			$$invalidate(2, idTasks++, idTasks);

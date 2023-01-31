@@ -9,10 +9,12 @@
 	const handlerDelete = (idx) => {
 		let blockTask = document.querySelector(".wrapper-todo-block-" + idx);
 		console.log(idx);
+		
 		tasksArray.forEach((task) => {
-			if (task.idTasks === idx) {
+			console.log(tasksArray);
+			if (task.idTasks == idx) {
+				tasksArray.shift(task.idTasks);
 				blockTask.parentNode.removeChild(blockTask);
-				tasksArray.shift(idx);
 				console.log(tasksArray);
 			}
 		});
@@ -30,12 +32,12 @@
 
 	function createTask() {
 		newTask = document.querySelector(".newTask").value;
-		if (!(newTask === "")) {
+		if (!(newTask == "")) {
 			const taskProps = {
 				idTasks,
 				isDone: "",
 				remove: "",
-				nameTask: document.querySelector(".newTask").value,
+				nameTask: newTask,
 			};
 
 			idTasks++;
