@@ -5,18 +5,20 @@
     export let handlerFinish;
 
     const handlerClick = () => {
+        console.log(idx);
         handlerDelete(idx);
     };
 
     const handlerClickFinish = () => {
+        console.log(idx);
         handlerFinish(idx);
     };
 </script>
 
 <div class="wrapper-todo-block-{idx} wrapper-todo-block flex flex-row flex-align-baseline">
-    <button on:click={handlerClickFinish} class="{idx}">Finsh</button>
+    <button on:click={handlerClickFinish} class="{idx}">Finish</button>
     <p>{nameTodo}</p>
-    <button class="{idx}" on:click={handlerClick}>delete</button>
+    <button class="{idx}" on:click={handlerClick} >delete</button>
 </div>
 
 <style>

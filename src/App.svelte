@@ -1,101 +1,116 @@
 <script>
 	import TodoItem from "./Components/TodoItem.svelte";
 
-	let newTask = "";
-	let tasksArray = [];
-	let text = "checked";
-	let idTasks = 0;
+	/*Set is the interface(collection of values) that has method like
+	 add(add some value) ,
+	 has(check if that value are already was added)*/
+	const taskNames = new Set();
 
-	const handlerDelete = (idx) => {
-		let blockTask = document.querySelector(".wrapper-todo-block-" + idx);
-		console.log(idx);
-		
-		tasksArray.forEach((task) => {
-			console.log(tasksArray);
-			if (task.idTasks == idx) {
-				tasksArray.shift(task.idTasks);
-				blockTask.parentNode.removeChild(blockTask);
-				console.log(tasksArray);
-			}
-		});
+	let finishedList = [];
+	let toDoList = [];
+	let count = 0;
+
+	const updateToDo = (task) => {
+		const data = task ? [...toDoList, task] : [...toDoList];
+
+		toDoList = data;
 	};
 
-	const handlerFinish = (idx) => {
-		tasksArray.forEach((task) => {
-			if (task.idTasks === idx) {
-				console.log("Finished");
-				task.isDone = "checked";
+	const updateFinished = (task) => {
+		const data = task ? [...finishedList, task] : [...finishedList];
+
+		finishedList = data;
+	};
+
+	const handlerDelete = (idx) => {
+		toDoList.forEach((task) => {
+			if (task.idx === idx) {
+				toDoList.shift(task);
 				console.log(task);
 			}
 		});
-	};
 
-	function createTask() {
-		newTask = document.querySelector(".newTask").value;
-		if (!(newTask == "")) {
-			const taskProps = {
-				idTasks,
-				isDone: "",
-				remove: "",
-				nameTask: newTask,
-			};
-
-			idTasks++;
-
-			tasksArray = [...tasksArray, taskProps];
-			console.log(tasksArray);
-			newTask = document.querySelector(".newTask").value = "";
-		} else {
-			alert("Write something ");
-		}
-	}
-
-	/* 	function checkName() {
-		tasksArray.forEach(function (name) {
-			console.log(name.nameTask);
-			if (!(name.nameTask === newTask)) {
-				console.log(name);
-				return name;
+		finishedList.forEach((task) => {
+			if (task.idx === idx) {
+				finishedList.shift(task);
+				updateFinished();
+				console.log(task);
 			}
 		});
-	} */
+
+		updateToDo();
+	};
+
+	const handlerFinish = (idx) => {
+		toDoList.forEach((task) => {
+			if (task.idx === idx) {
+				handlerDelete(idx);
+				updateToDo();
+
+				finishedList.push(task);
+				updateFinished();
+			}
+		});
+	};
+
+	const handlerCreate = () => {
+		let { value } = document.querySelector(".newTask");
+
+		if (!value) return;
+
+		if (taskNames.has(value)) {
+			console.log(`Task "${value}" already exists.`);
+			return;
+		}
+
+		taskNames.add(value);
+
+		const task = {
+			idx: count,
+			name: value,
+			handlerDelete,
+		};
+
+		
+
+		console.log(value);
+
+		count += 1;
+		console.log(toDoList);
+
+		updateToDo(task);
+		
+		value  = document.querySelector(".newTask").value="";
+
+	};
 </script>
 
 <main>
 	<div class="wrapper-create-task">
-		<input
-			type="text"
-			class="newTask"
-			value={newTask}
-			placeholder="Write wour task here"
-		/>
-		<button on:click={createTask}>Create</button>
+		<input type="text" class="newTask" placeholder="Write wour task here" />
+		<button on:click={handlerCreate}>Create</button>
 	</div>
 	<div class="wrapper-container-tasks flex flex-justify-around">
 		<div class="wrapper-todo">
 			<h1>Todo</h1>
-			{#each tasksArray as { idTasks, nameTask, isDone }}
-				{#if !(isDone == "checked")}
-					<TodoItem
-						nameTodo={nameTask}
-						idx={idTasks}
-						{handlerDelete}
-						{handlerFinish}
-					/>
-				{/if}
+			{#each toDoList as { idx, name }}
+				<TodoItem
+					nameTodo={name}
+					{idx}
+					{handlerDelete}
+					{handlerFinish}
+				/>
 			{/each}
 		</div>
 		<div class="wrapper-done">
 			<h1>Finished</h1>
-			{#each tasksArray as { idTasks, isDone, nameTask }}
-				{#if isDone == "checked"}
-					<TodoItem
-						nameTodo={nameTask}
-						idx={idTasks}
-						{handlerDelete}
-						{handlerFinish}
-					/>
-				{/if}
+			{#each finishedList as { idx, name }}
+				<TodoItem
+					nameTodo={name}
+					{idx}
+					{handlerDelete}
+					{handlerFinish}
+				/>
 			{/each}
 		</div>
 	</div>
