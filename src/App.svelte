@@ -26,6 +26,8 @@
 		toDoList.forEach((task) => {
 			if (task.idx === idx) {
 				toDoList.shift(task);
+				updateToDo();
+				taskNames.delete(task.name)
 				console.log(task);
 			}
 		});
@@ -76,11 +78,10 @@
 		console.log(value);
 
 		count += 1;
-		console.log(toDoList);
-
 		updateToDo(task);
 		
 		value  = document.querySelector(".newTask").value="";
+		console.log(toDoList);
 
 	};
 </script>

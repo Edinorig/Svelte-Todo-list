@@ -675,7 +675,7 @@ var app = (function () {
     	return child_ctx;
     }
 
-    // (96:3) {#each toDoList as { idx, name }}
+    // (97:3) {#each toDoList as { idx, name }}
     function create_each_block_1(ctx) {
     	let todoitem;
     	let current;
@@ -722,14 +722,14 @@ var app = (function () {
     		block,
     		id: create_each_block_1.name,
     		type: "each",
-    		source: "(96:3) {#each toDoList as { idx, name }}",
+    		source: "(97:3) {#each toDoList as { idx, name }}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (107:3) {#each finishedList as { idx, name }}
+    // (108:3) {#each finishedList as { idx, name }}
     function create_each_block(ctx) {
     	let todoitem;
     	let current;
@@ -776,7 +776,7 @@ var app = (function () {
     		block,
     		id: create_each_block.name,
     		type: "each",
-    		source: "(107:3) {#each finishedList as { idx, name }}",
+    		source: "(108:3) {#each finishedList as { idx, name }}",
     		ctx
     	});
 
@@ -857,22 +857,22 @@ var app = (function () {
     			attr_dev(input, "type", "text");
     			attr_dev(input, "class", "newTask");
     			attr_dev(input, "placeholder", "Write wour task here");
-    			add_location(input, file, 89, 2, 1580);
-    			add_location(button, file, 90, 2, 1655);
+    			add_location(input, file, 90, 2, 1629);
+    			add_location(button, file, 91, 2, 1704);
     			attr_dev(div0, "class", "wrapper-create-task");
-    			add_location(div0, file, 88, 1, 1544);
+    			add_location(div0, file, 89, 1, 1593);
     			attr_dev(h10, "class", "svelte-1tky8bj");
-    			add_location(h10, file, 94, 3, 1808);
+    			add_location(h10, file, 95, 3, 1857);
     			attr_dev(div1, "class", "wrapper-todo");
-    			add_location(div1, file, 93, 2, 1778);
+    			add_location(div1, file, 94, 2, 1827);
     			attr_dev(h11, "class", "svelte-1tky8bj");
-    			add_location(h11, file, 105, 3, 2006);
+    			add_location(h11, file, 106, 3, 2055);
     			attr_dev(div2, "class", "wrapper-done");
-    			add_location(div2, file, 104, 2, 1976);
+    			add_location(div2, file, 105, 2, 2025);
     			attr_dev(div3, "class", "wrapper-container-tasks flex flex-justify-around");
-    			add_location(div3, file, 92, 1, 1713);
+    			add_location(div3, file, 93, 1, 1762);
     			attr_dev(main, "class", "svelte-1tky8bj");
-    			add_location(main, file, 87, 0, 1536);
+    			add_location(main, file, 88, 0, 1585);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -1036,6 +1036,8 @@ var app = (function () {
     		toDoList.forEach(task => {
     			if (task.idx === idx) {
     				toDoList.shift(task);
+    				updateToDo();
+    				taskNames.delete(task.name);
     				console.log(task);
     			}
     		});
@@ -1075,9 +1077,9 @@ var app = (function () {
     		const task = { idx: count, name: value, handlerDelete };
     		console.log(value);
     		count += 1;
-    		console.log(toDoList);
     		updateToDo(task);
     		value = document.querySelector(".newTask").value = "";
+    		console.log(toDoList);
     	};
 
     	const writable_props = [];
