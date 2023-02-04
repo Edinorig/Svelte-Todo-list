@@ -663,27 +663,27 @@ var app = (function () {
 
     function get_each_context(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[9] = list[i].idx;
-    	child_ctx[10] = list[i].name;
+    	child_ctx[10] = list[i].idx;
+    	child_ctx[11] = list[i].name;
     	return child_ctx;
     }
 
     function get_each_context_1(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[9] = list[i].idx;
-    	child_ctx[10] = list[i].name;
+    	child_ctx[10] = list[i].idx;
+    	child_ctx[11] = list[i].name;
     	return child_ctx;
     }
 
-    // (97:3) {#each toDoList as { idx, name }}
+    // (99:3) {#each toDoList as { idx, name }}
     function create_each_block_1(ctx) {
     	let todoitem;
     	let current;
 
     	todoitem = new TodoItem({
     			props: {
-    				nameTodo: /*name*/ ctx[10],
-    				idx: /*idx*/ ctx[9],
+    				nameTodo: /*name*/ ctx[11],
+    				idx: /*idx*/ ctx[10],
     				handlerDelete: /*handlerDelete*/ ctx[2],
     				handlerFinish: /*handlerFinish*/ ctx[3]
     			},
@@ -700,8 +700,8 @@ var app = (function () {
     		},
     		p: function update(ctx, dirty) {
     			const todoitem_changes = {};
-    			if (dirty & /*toDoList*/ 2) todoitem_changes.nameTodo = /*name*/ ctx[10];
-    			if (dirty & /*toDoList*/ 2) todoitem_changes.idx = /*idx*/ ctx[9];
+    			if (dirty & /*toDoList*/ 2) todoitem_changes.nameTodo = /*name*/ ctx[11];
+    			if (dirty & /*toDoList*/ 2) todoitem_changes.idx = /*idx*/ ctx[10];
     			todoitem.$set(todoitem_changes);
     		},
     		i: function intro(local) {
@@ -722,22 +722,22 @@ var app = (function () {
     		block,
     		id: create_each_block_1.name,
     		type: "each",
-    		source: "(97:3) {#each toDoList as { idx, name }}",
+    		source: "(99:3) {#each toDoList as { idx, name }}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (108:3) {#each finishedList as { idx, name }}
+    // (110:3) {#each finishedList as { idx, name }}
     function create_each_block(ctx) {
     	let todoitem;
     	let current;
 
     	todoitem = new TodoItem({
     			props: {
-    				nameTodo: /*name*/ ctx[10],
-    				idx: /*idx*/ ctx[9],
+    				nameTodo: /*name*/ ctx[11],
+    				idx: /*idx*/ ctx[10],
     				handlerDelete: /*handlerDelete*/ ctx[2],
     				handlerFinish: /*handlerFinish*/ ctx[3]
     			},
@@ -754,8 +754,8 @@ var app = (function () {
     		},
     		p: function update(ctx, dirty) {
     			const todoitem_changes = {};
-    			if (dirty & /*finishedList*/ 1) todoitem_changes.nameTodo = /*name*/ ctx[10];
-    			if (dirty & /*finishedList*/ 1) todoitem_changes.idx = /*idx*/ ctx[9];
+    			if (dirty & /*finishedList*/ 1) todoitem_changes.nameTodo = /*name*/ ctx[11];
+    			if (dirty & /*finishedList*/ 1) todoitem_changes.idx = /*idx*/ ctx[10];
     			todoitem.$set(todoitem_changes);
     		},
     		i: function intro(local) {
@@ -776,7 +776,7 @@ var app = (function () {
     		block,
     		id: create_each_block.name,
     		type: "each",
-    		source: "(108:3) {#each finishedList as { idx, name }}",
+    		source: "(110:3) {#each finishedList as { idx, name }}",
     		ctx
     	});
 
@@ -857,22 +857,22 @@ var app = (function () {
     			attr_dev(input, "type", "text");
     			attr_dev(input, "class", "newTask");
     			attr_dev(input, "placeholder", "Write wour task here");
-    			add_location(input, file, 90, 2, 1629);
-    			add_location(button, file, 91, 2, 1704);
+    			add_location(input, file, 92, 2, 1753);
+    			add_location(button, file, 93, 2, 1828);
     			attr_dev(div0, "class", "wrapper-create-task");
-    			add_location(div0, file, 89, 1, 1593);
+    			add_location(div0, file, 91, 1, 1717);
     			attr_dev(h10, "class", "svelte-1tky8bj");
-    			add_location(h10, file, 95, 3, 1857);
+    			add_location(h10, file, 97, 3, 1981);
     			attr_dev(div1, "class", "wrapper-todo");
-    			add_location(div1, file, 94, 2, 1827);
+    			add_location(div1, file, 96, 2, 1951);
     			attr_dev(h11, "class", "svelte-1tky8bj");
-    			add_location(h11, file, 106, 3, 2055);
+    			add_location(h11, file, 108, 3, 2179);
     			attr_dev(div2, "class", "wrapper-done");
-    			add_location(div2, file, 105, 2, 2025);
+    			add_location(div2, file, 107, 2, 2149);
     			attr_dev(div3, "class", "wrapper-container-tasks flex flex-justify-around");
-    			add_location(div3, file, 93, 1, 1762);
+    			add_location(div3, file, 95, 1, 1886);
     			attr_dev(main, "class", "svelte-1tky8bj");
-    			add_location(main, file, 88, 0, 1585);
+    			add_location(main, file, 90, 0, 1709);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -1035,7 +1035,8 @@ var app = (function () {
     	const handlerDelete = idx => {
     		toDoList.forEach(task => {
     			if (task.idx === idx) {
-    				toDoList.shift(task);
+    				$$invalidate(1, toDoList = toDoList.filter(item => item !== task));
+    				console.log(toDoList);
     				updateToDo();
     				taskNames.delete(task.name);
     				console.log(task);
@@ -1044,7 +1045,7 @@ var app = (function () {
 
     		finishedList.forEach(task => {
     			if (task.idx === idx) {
-    				finishedList.shift(task);
+    				$$invalidate(0, finishedList = finishedList.filter(item => item !== task));
     				updateFinished();
     				console.log(task);
     			}
@@ -1062,6 +1063,10 @@ var app = (function () {
     				updateFinished();
     			}
     		});
+    	};
+
+    	const handlerFinishBack = idx => {
+    		
     	};
 
     	const handlerCreate = () => {
@@ -1098,6 +1103,7 @@ var app = (function () {
     		updateFinished,
     		handlerDelete,
     		handlerFinish,
+    		handlerFinishBack,
     		handlerCreate
     	});
 

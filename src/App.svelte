@@ -25,7 +25,8 @@
 	const handlerDelete = (idx) => {
 		toDoList.forEach((task) => {
 			if (task.idx === idx) {
-				toDoList.shift(task);
+				toDoList = toDoList.filter(item => item !== task)
+				console.log(toDoList);
 				updateToDo();
 				taskNames.delete(task.name)
 				console.log(task);
@@ -34,7 +35,7 @@
 
 		finishedList.forEach((task) => {
 			if (task.idx === idx) {
-				finishedList.shift(task);
+				finishedList = finishedList.filter(item => item !== task)
 				updateFinished();
 				console.log(task);
 			}
@@ -55,6 +56,10 @@
 		});
 	};
 
+	const handlerFinishBack = (idx =>{
+
+	});
+
 	const handlerCreate = () => {
 		let { value } = document.querySelector(".newTask");
 
@@ -73,16 +78,13 @@
 			handlerDelete,
 		};
 
-		
-
 		console.log(value);
 
 		count += 1;
 		updateToDo(task);
-		
-		value  = document.querySelector(".newTask").value="";
-		console.log(toDoList);
 
+		value = document.querySelector(".newTask").value = "";
+		console.log(toDoList);
 	};
 </script>
 
